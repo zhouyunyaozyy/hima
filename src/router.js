@@ -64,46 +64,46 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "uptKofoHistory" */ './views/UPT-KOFO/History.vue'),
   //   meta: { title: '预约认购记录', authorization: true },
   // },
-  
-  
+
+
   {
     path: '/InHome',
     name: 'inHome',
     component: () => import(/* webpackChunkName: "vds" */ './views/HAIMA-TEST/InHome.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
   {
     path: '/Explain',
     name: 'explain',
     component: () => import(/* webpackChunkName: "vds1" */ './views/HAIMA-TEST/Explain.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
   {
     path: '/TestPage',
     name: 'testPage',
     component: () => import(/* webpackChunkName: "vds2" */ './views/HAIMA-TEST/TestPage.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
   {
     path: '/TestResult',
     name: 'testResult',
     component: () => import(/* webpackChunkName: "vds3" */ './views/HAIMA-TEST/TestResult.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
   {
     path: '/ResultLoading',
     name: 'resultLoading',
     component: () => import(/* webpackChunkName: "vds4" */ './views/HAIMA-TEST/ResultLoading.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
   {
     path: '/download',
     name: 'download',
     component: () => import(/* webpackChunkName: "vds5" */ './views/HAIMA-TEST/download.vue'),
-//    meta: { title: 'inHome' },
+    //    meta: { title: 'inHome' },
   },
-  
-  
+
+
 //  李庆杰
 //  {
 //    path: '/vds',
@@ -133,8 +133,8 @@ const routes = [
 
 const router = new Router({
   mode: 'history',
-//  base: url.parse(process.env.BASE_URL).path, // 适用于OSS/CDN，process.env.BASE_URL仅适用于开发部署
-  base: "/activity/hima/", // 适用于OSS/CDN，process.env.BASE_URL仅适用于开发部署
+  base: url.parse(process.env.BASE_URL).path, // 适用于OSS/CDN，process.env.BASE_URL仅适用于开发部署
+  //  base: "/activity/hima/", // 适用于OSS/CDN，process.env.BASE_URL仅适用于开发部署
   routes,
 });
 router.beforeEach((to, from, next) => {
@@ -142,8 +142,8 @@ router.beforeEach((to, from, next) => {
         "props": true,
         "ignorePropertyModificationsFor": ["to"]
       }] */
-  
-  console.log("process.env:",process.env, "url.parse(process.env.BASE_URL).path:", url.parse(process.env.BASE_URL).path)
+
+  console.log('process.env:', process.env, 'url.parse(process.env.BASE_URL).path:', url.parse(process.env.BASE_URL).path);
   to.meta.title = to.meta.title || TITLE;
   window.document.title = to.meta.title; // 动态修改窗口标题
   if (to.meta.authorization) {

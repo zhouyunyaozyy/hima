@@ -1,7 +1,7 @@
 // 导入compression-webpack-plugin
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // 定义压缩文件类型
-const productionGzipExtensions = ['js', 'css']
+const productionGzipExtensions = ['js', 'css'];
 
 
 const pxToRem = require('postcss-pxtorem');
@@ -21,7 +21,7 @@ function generatePublicPath() { // 生成插件路径前缀
     case isOss === 'true':
       return `${realmName}/${name}`; // 打包后用于CDN/OSS
     case isProduction:
-      return homepage || `/activity/hima/`; // 打包后可直接部署
+      return homepage || '/counseling/'; // 打包后可直接部署
     default:
       return rootPath; // 打包后为根应用，适用于开发和主域应用
   }
@@ -71,7 +71,7 @@ module.exports = { // https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E
   devServer: {
     overlay: {
       warnings: false,
-      errors: false
+      errors: false,
     },
     port: '8084',
     proxy: {
@@ -90,11 +90,11 @@ module.exports = { // https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E
       new CompressionWebpackPlugin({
         filename: '[path].gz[query]',
         algorithm: 'gzip',
-        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
         threshold: 10240,
-        minRatio: 0.8
-      })
-    ]
+        minRatio: 0.8,
+      }),
+    ],
   },
   transpileDependencies: [/* 'proxy-polyfill' */],
 };

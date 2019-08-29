@@ -1,9 +1,10 @@
 import '@babel/polyfill';
 import Vue from 'vue';
 import cookies from 'cookies-js';
+import axios from 'axios';
 import App from './App.vue';
 import router from './router';
-//import store from './store';
+// import store from './store';
 import mixins from './plugins/mixins';
 import eject from './plugins/eject';
 import filter from './plugins/filters';
@@ -13,11 +14,11 @@ import './assets/styleSheet/transition.css';
 import './assets/styleSheet/custom.css';
 import 'lib-flexible';
 import i18n, { setI18nLanguage } from './plugins/i18n';
-//import successAlert from './views/KLT/components/alert';
+// import successAlert from './views/KLT/components/alert';
 
-import './assets/styles/index.scss'
+import './assets/styles/index.scss';
 
-//Vue.use(successAlert);
+// Vue.use(successAlert);
 Vue.config.productionTip = false;
 Vue.mixin(mixins);
 Vue.use(filter);
@@ -42,6 +43,51 @@ jockey.on('setCurrentLanguage', (payload, complete) => { // 设置语言
   if (complete) process.nextTick(complete); // 执行完毕回调APP
 });
 
+Vue.prototype.$axios = function (params) {
+  if (params.type === 'post') {
+    axios.post(
+      'https://test.himaemotion.com/support/parameter/share',
+      params.data,
+      {
+        withCredentials: false,
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      },
+    )
+      .then((response) => {
+      //        Cookies.set('token', response.data.token)
+      //                Cookies.set('token', 'will')
+      //        if (response.data.code == 416) {
+      //          Message({
+      //            showClose: true,
+      //            message: response.data.info,
+      //            type: 'error'
+      //          })
+      //          params.fuc(response.data)
+      //        } else if (response.data.code == 1010) {
+      //          Cookies.remove('Admin-Token')
+      //          Cookies.remove('token')
+      //          location.reload()
+      //        } else if (response.data.code != 200) {
+      //          Message({
+      //            showClose: true,
+      //            message: response.data.info,
+      //            type: 'error'
+      //          })
+      //        } else {
+        params.fuc(response.data);
+        //        }
+      })
+      .catch((error) => {
+        let mes = '加载超时 请检查网络！';
+        if (error.response && error.response.status) {
+          mes = error.response.data;
+        }
+        console.log(error.request);
+        alert(mes);
+      });
+  }
+};
+
 /* eslint-disable no-new */
 // event.emit('updateToken');
 // new window.VConsole();
@@ -49,7 +95,7 @@ new Vue({
   el: '#root',
   router,
   i18n,
-//  store,
+  //  store,
   // components: { App },
   // template: '<App/>', // https://cli.vuejs.org/config/#runtimecompiler
   render: h => h(App),
